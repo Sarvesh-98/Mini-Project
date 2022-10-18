@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\Sarvesh\Downloads\Mini Project\Mini Project\src\com"/>
+		<item value="C:\Users\Sarvesh\eclipse-workspace\Mini project\src\com"/>
+		<item value="C:\Users\Sarvesh\eclipse-workspace\Mini project"/>
+	</list>
+	<section name="NewWizardAction">
+		<item value="org.eclipse.jdt.ui.wizards.JavaProjectWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+		</list>
+	</section>
+	<section name="BasicNewProjectResourceWizard">
+	</section>
 </section>

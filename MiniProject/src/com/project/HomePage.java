@@ -7,17 +7,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public  class HomePage {
-	static Scanner input = new Scanner(System.in); 
-  String email, password, username,firstname, lastname, address;
+	static Scanner input = new Scanner(System.in);	
+  String email;
+  String password;
+ String username;
+String firstname;
+String lastname;
+String address;
   String contact;
   
   public static void chooseAccount() {
-	  System.out.println("Welcome to My Groccery's Shop");
+	  
 	  
 	  System.out.println("Please press Enter 0 to SignIn");
 		System.out.println("Please press Enter 1 to UserLogIn ");
@@ -47,7 +50,7 @@ public  class HomePage {
    	   Class.forName("com.mysql.cj.jdbc.Driver"); 
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "9764631771");
 
-			PreparedStatement ps=conn.prepareStatement("insert into Userinfo(FirstName,LastName,EmailId,UserName,Password,Address,Contact) values(?,?,?,?,?,?,?)");  
+			PreparedStatement ps=conn.prepareStatement("insert into Userinfo(LastName,FirstName,EmailId,UserName,Password,Address,Contact) values(?,?,?,?,?,?,?)");  
 			
 			BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); 
 		  
@@ -55,10 +58,10 @@ public  class HomePage {
     	
 			do {
 			 
-         System.out.println("first name : ");
-         String firstname=br.readLine();  
          System.out.println("last name : ");
          String lastname=br.readLine();  
+         System.out.println("first name : ");
+         String firstname=br.readLine();  
          System.out.print("email : "); 
       	String email=br.readLine(); 
          System.out.print("username : ");
@@ -87,7 +90,7 @@ public  class HomePage {
          String s=br.readLine();  
          if(s.startsWith("y")){  
        	  System.out.println("Registered Successfull");
-       	User();
+       	chooseAccount();
          break;  
          }  
          }while(true); 
@@ -105,7 +108,7 @@ public  class HomePage {
   }
 
 		
-	  
+	  static int id;
   
   public static  void User() {
  
@@ -113,39 +116,35 @@ public  class HomePage {
       	System.out.println("Enter Details to LogIN");
     	
       	try {
-      	 Class.forName("com.mysql.cj.jdbc.Driver"); 
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "9764631771");
-						PreparedStatement ps=conn.prepareStatement("Select * from Userinfo where username = ? and password =?");
-			
-			BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); 
-     
-		
-          System.out.println("username : ");
-      	String username=br.readLine();
-      	System.out.print("password : ");
-		String password=br.readLine();
-		
-		ps.setString(1,username);
-		ps.setString(2,password);
-		
-		 ResultSet rs = ps.executeQuery();
-         if (rs.next()) {
-            System.out.println("Logged In Successfully");
-            Product.product();
-           
-         }
-         else {
-        	 System.err.println("Incorrect username or password");
-         }
-           
-
-        } catch (Exception e) { 
-            System.err.println("Got an exception! "); 
-            System.err.println(e.getMessage()); 
-        } 
-       
-		}
-  
+         	 Class.forName("com.mysql.cj.jdbc.Driver"); 
+   			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "9764631771");
+   						PreparedStatement ps=conn.prepareStatement("Select * from Userinfo where username = ? and password =?");
+   			
+   			BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); 
+        
+   		
+             System.out.println("username : ");
+         	String username=br.readLine();
+         	System.out.print("password : ");
+   		String password=br.readLine();
+   		
+   		ps.setString(1,username);
+   		ps.setString(2,password);
+   		
+   		 ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+               System.out.println("Logged In Successfully");
+               Product.product();             
+            }
+            else {
+           	 System.err.println("Incorrect username or password");
+           	chooseAccount();
+            }
+           } catch (Exception e) { 
+               System.err.println("Got an exception! "); 
+               System.err.println(e.getMessage()); 
+           }
+  }
 		 public static void Admin() {
 			 
 		      	System.out.print("Enter Details to LogIN");
@@ -153,14 +152,12 @@ public  class HomePage {
 		      	try {
 		      	 Class.forName("com.mysql.cj.jdbc.Driver"); 
 					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "9764631771");
-								PreparedStatement ps=conn.prepareStatement("Select * from Userinfo where username = ? and password =?");
+								PreparedStatement ps=conn.prepareStatement("Select * from Userinfo where UserName = ? and Password =?");
 					
-					BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); 
-		     
-				
+					BufferedReader br=new BufferedReader(new InputStreamReader(System.in));				
 		          System.out.print("username : ");
 		      	String username=br.readLine();
-		      	System.out.print("password : ");
+		      	System.out.print("Password : ");
 				String password=br.readLine();
 				
 				ps.setString(1,username);
@@ -169,29 +166,18 @@ public  class HomePage {
 				 ResultSet rs = ps.executeQuery();
 		         if (rs.next()) {
 		            System.out.println("Logged In Successfully");
-//		            Admin.admin();
+		            Admin.chooseOptions();
 		         }
 		         else {
 		        	 System.err.println("Incorrect username or password");
-		         }
-		           
-
+		        	 chooseAccount();
+		         }		          
 		        } catch (Exception e) { 
 		            System.err.println("Got an exception! "); 
 		            System.err.println(e.getMessage()); 
-		        } 
-		        
+		        } 		        
 		    }	
   }
 		
-  
 
-  
-//	public static void main(String[] args) {
-//		
-//		HomePage hp = new HomePage();
-//		hp.chooseAccount();
-//		hp.User();
-//		hp.Admin();
-//	}
 
